@@ -4,7 +4,8 @@
   "description": "Tutorial from https://survivejs.com/webpack/preface/",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
+    "build": "webpack --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +21,8 @@
   "homepage": "https://github.com/BriptimusPrimus/webpack-demo#readme",
   "devDependencies": {
     "html-webpack-plugin": "^2.30.1",
-    "webpack": "^3.5.5"
+    "nodemon": "^1.11.0",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
   }
 }
