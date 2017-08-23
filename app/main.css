@@ -1,5 +1,6 @@
 body {
-    background: cornsilk; 
+    background: cornsilk;
+    display: flex;
 }
 
 .redButton {
