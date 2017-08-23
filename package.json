@@ -21,10 +21,12 @@
   },
   "homepage": "https://github.com/BriptimusPrimus/webpack-demo#readme",
   "devDependencies": {
+    "css-loader": "^0.28.5",
     "eslint": "^4.5.0",
     "eslint-loader": "^1.9.0",
     "html-webpack-plugin": "^2.30.1",
     "nodemon": "^1.11.0",
+    "style-loader": "^0.18.2",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1",
     "webpack-merge": "^4.1.0"
