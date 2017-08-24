@@ -3,11 +3,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 
+const glob = require('glob');
+
 const parts = require('./webpack.parts');
 
 const PATHS = {
 	app: path.join(__dirname, 'app'),
 	build: path.join(__dirname, 'build'),
+	style: glob.sync('./app/**/*.css'),
 };
 
 const commonConfig = merge([
@@ -17,6 +20,7 @@ const commonConfig = merge([
 		// it resolves to that.
 		entry: {
 			app: PATHS.app,
+			style: PATHS.style,
 		},
 		output: {
 			path: PATHS.build,
@@ -29,9 +33,16 @@ const commonConfig = merge([
 		],
 	},
 	parts.lintJavaScript({ include: PATHS.app }),
+	parts.lintCSS({ include: PATHS.app }),
 ]);
 
 const productionConfig = merge([
+	parts.extractCSS({
+		use: ['css-loader', parts.autoprefix()]
+	}),
+	parts.purifyCSS({
+		paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
+	}),
 ]);
 
 const developmentConfig = merge([
@@ -40,6 +51,7 @@ const developmentConfig = merge([
 		host: process.env.HOST,
 		port: process.env.PORT,
 	}),
+	parts.loadCSS(),
 ]);
 
 const developmentConfigBK = () => {
