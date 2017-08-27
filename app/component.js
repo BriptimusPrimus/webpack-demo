@@ -4,5 +4,13 @@ export default (text = 'Hello world') => {
 	element.className = 'fa fa-hand-spock-o fa-1g';
 	element.innerHTML = text;
 
+	element.onclick = () => {
+		import('./lazy').then((lazy) => {
+			element.textContent = lazy.default;
+		}).catch((err) => {
+			console.log(err);
+		});
+	};
+
 	return element;
 };
