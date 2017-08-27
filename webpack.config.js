@@ -37,14 +37,15 @@ const commonConfig = merge([
 	parts.loadFonts({
 		options: {
 			name: '[name][ext]',
-		}
+		},
 	}),
 	parts.loadJavaScript({ include: PATHS.app }),
 ]);
 
 const productionConfig = merge([
+	parts.generateSourceMaps({ type: 'source-map' }),
 	parts.extractCSS({
-		use: ['css-loader', parts.autoprefix()]
+		use: ['css-loader', parts.autoprefix()],
 	}),
 	parts.purifyCSS({
 		paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
@@ -58,6 +59,13 @@ const productionConfig = merge([
 ]);
 
 const developmentConfig = merge([
+	{
+		output: {
+			devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
+		},
+	},
+	parts.generateSourceMaps({ type: 'cheap-module-eval-source-map' }),
+
 	parts.devServer({
 		// Customize host/port here if needed
 		host: process.env.HOST,
