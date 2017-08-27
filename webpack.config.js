@@ -42,7 +42,25 @@ const commonConfig = merge([
 ]);
 
 const productionConfig = merge([
+	{
+		performance: {
+			hints: 'warning', // 'error' or false are valid too
+			maxEntrypointSize: 100000, // in bytes
+			maxAssetSize: 450000, //in bytes
+		},
+	},
 	parts.clean(PATHS.build),
+	parts.minifyJavascript(),
+	parts.minifyCSS({
+		options: {
+			discardComments: {
+				removeAll: true,
+			},
+			// Run cssnano in safe mode to avoid
+			// potentially unsafe transformations.
+			safe: true,
+		},
+	}),
 	parts.generateSourceMaps({ type: 'source-map' }),
 	parts.extractCSS({
 		use: ['css-loader', parts.autoprefix()],
