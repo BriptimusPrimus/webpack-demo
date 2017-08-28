@@ -8,6 +8,7 @@
     "build": "webpack --env production",
     "lint:js": "eslint app/ webpack.*.js --cache",
     "lint:style": "stylelint app/**/*.css",
+    "stats": "webpack --env production --profile --json > stats.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
