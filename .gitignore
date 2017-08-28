@@ -59,3 +59,9 @@ typings/
 
 # Build directory
 build
+
+# Webpack module IDs records file
+records.json
+
+# Webpack statistics file
+stats.json

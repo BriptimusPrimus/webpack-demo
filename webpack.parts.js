@@ -3,6 +3,9 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const BabiliPlugin = require('babili-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cssnano = require('cssnano');
 
 exports.devServer = ({ host, port } = {}) => ({
 	devServer: {
@@ -72,7 +75,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
 exports.extractCSS = ({ include, exclude, use }) => {
 	// Output extracted CSS to a file
 	const plugin = new ExtractTextPlugin({
-		filename: '[name].css',
+		filename: '[name].[contenthash:8].css',
 	});
 
 	return {
@@ -172,7 +175,7 @@ exports.loadJavaScript = ({ include, exclude }) => ({
 				include,
 				exclude,
 
-				loader: 'babel-loader',
+				loader: 'happypack/loader',
 				options: {
 					// Enable caching for improved performance during
 					// development.
@@ -209,3 +212,30 @@ exports.attachRevision = () => ({
 		}),
 	],
 });
+
+exports.minifyJavascript = () => ({
+	plugins: [
+		new BabiliPlugin(),
+	],
+});
+
+exports.minifyCSS = ({ options }) => ({
+	plugins: [
+		new OptimizeCSSAssetsPlugin({
+			cssProcessor: cssnano,
+			cssProcessorOptions: options,
+			canPrint: false,
+		}),
+	],
+});
+
+exports.setFreeVariable = (key, value) => {
+	const env = {};
+	env[key] = JSON.stringify(value);
+
+	return {
+		plugins: [
+			new webpack.DefinePlugin(env),
+		],
+	};
+};
