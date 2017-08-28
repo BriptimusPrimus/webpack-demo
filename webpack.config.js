@@ -56,6 +56,7 @@ const productionConfig = merge([
 		plugins: [
 			new webpack.HashedModuleIdsPlugin(),
 		],
+		recordsPath: path.join(__dirname, 'records.json'),
 	},
 	parts.clean(PATHS.build),
 	parts.minifyJavascript(),
@@ -91,6 +92,10 @@ const productionConfig = merge([
 				resource.indexOf('node_modules') >= 0 &&
 				resource.match(/\.js$/)
 			),
+		},
+		{
+			name: 'manifest',
+			minChunks: 'Infinity',
 		},
 	]),
 	parts.attachRevision(),
