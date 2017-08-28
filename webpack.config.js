@@ -2,10 +2,9 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
-
 const glob = require('glob');
-
 const parts = require('./webpack.parts');
+const HappyPack = require('happypack');
 
 const PATHS = {
 	app: path.join(__dirname, 'app'),
@@ -29,6 +28,12 @@ const commonConfig = merge([
 		plugins: [
 			new HtmlWebpackPlugin({
 				title: 'Webpack demo',
+			}),
+			new HappyPack({
+				loaders: [
+					// Capture Babel loader
+					'babel-loader',
+				],
 			}),
 		],
 	},

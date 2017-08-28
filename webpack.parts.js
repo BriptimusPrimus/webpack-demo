@@ -175,7 +175,7 @@ exports.loadJavaScript = ({ include, exclude }) => ({
 				include,
 				exclude,
 
-				loader: 'babel-loader',
+				loader: 'happypack/loader',
 				options: {
 					// Enable caching for improved performance during
 					// development.
