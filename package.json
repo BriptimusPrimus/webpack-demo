@@ -9,6 +9,8 @@
     "lint:js": "eslint app/ webpack.*.js --cache",
     "lint:style": "stylelint app/**/*.css",
     "stats": "webpack --env production --profile --json > stats.json",
+    "build:lib": "webpack --config webpack.lib.js",
+    "prebuild:lib": "npm run lint:js && rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -46,6 +48,7 @@
     "postcss-loader": "^2.0.6",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
+    "rimraf": "^2.6.1",
     "style-loader": "^0.18.2",
     "stylelint": "^8.0.0",
     "url-loader": "^0.5.9",
