@@ -17,7 +17,7 @@ const commonConfig = merge([
 		output: {
 			path: PATHS.build,
 			library: 'Demo',
-			libraryTarget: 'var', // Default
+			libraryTarget: 'umd', // Support for CommonJS, AMD, and globals
 		},
 		plugins: [
 			new HappyPack({
