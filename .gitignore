@@ -60,6 +60,7 @@ typings/
 # Build directories
 build
 dist
+static
 
 # Webpack module IDs records file
 records.json
