@@ -61,6 +61,7 @@ typings/
 build
 dist
 static
+i18n-build
 
 # Webpack module IDs records file
 records.json

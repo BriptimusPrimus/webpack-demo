@@ -21,6 +21,10 @@ module.exports = {
       'react',
     ],
 
+    globals: {
+      __: true,
+    },
+
     rules: {
         'comma-dangle': ['error', 'always-multiline'],
         indent: ['error', "tab"],

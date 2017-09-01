@@ -16,13 +16,13 @@ export default () => {
 	element.innerHTML = state.text;
 	element.onclick = () => worker.postMessage({ text: state.text });
 
-// element.onclick = () => {
-// 	import('./lazy').then((lazy) => {
-// 		element.textContent = lazy.default;
-// 	}).catch((err) => {
-// 		console.log(err);
-// 	});
-// };
+	// element.onclick = () => {
+	// 	import('./lazy').then((lazy) => {
+	// 		element.textContent = lazy.default;
+	// 	}).catch((err) => {
+	// 		console.log(err);
+	// 	});
+	// };
 
 	return element;
 };
