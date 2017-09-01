@@ -1,16 +1,28 @@
-export default (text = 'Hello world') => {
-	const element = document.createElement('div');
+import Worker from 'worker-loader!./worker';
 
-	element.className = 'fa fa-hand-spock-o fa-1g';
-	element.innerHTML = text;
+export default () => {
+	const element = document.createElement('h1');
+	const worker = new Worker();
+	const state = { text: 'foo' };
 
-	element.onclick = () => {
-		import('./lazy').then((lazy) => {
-			element.textContent = lazy.default;
-		}).catch((err) => {
-			console.log(err);
-		});
-	};
+	worker.addEventListener(
+		'message',
+		({ data: { text } }) => {
+			state.text = text;
+			element.innerHTML = text;
+		}
+	);
+
+	element.innerHTML = state.text;
+	element.onclick = () => worker.postMessage({ text: state.text });
+
+// element.onclick = () => {
+// 	import('./lazy').then((lazy) => {
+// 		element.textContent = lazy.default;
+// 	}).catch((err) => {
+// 		console.log(err);
+// 	});
+// };
 
 	return element;
 };
