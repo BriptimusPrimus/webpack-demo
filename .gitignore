@@ -57,8 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
-# Build directory
+# Build directories
 build
+dist
+static
 
 # Webpack module IDs records file
 records.json

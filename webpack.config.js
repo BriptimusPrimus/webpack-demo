@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const glob = require('glob');
 const parts = require('./webpack.parts');
@@ -18,7 +17,6 @@ const commonConfig = merge([
 		// convention by default so if a directory contains *index.js*,
 		// it resolves to that.
 		entry: {
-			app: PATHS.app,
 			style: PATHS.style,
 		},
 		output: {
@@ -26,9 +24,6 @@ const commonConfig = merge([
 			filename: '[name].js',
 		},
 		plugins: [
-			new HtmlWebpackPlugin({
-				title: 'Webpack demo',
-			}),
 			new HappyPack({
 				loaders: [
 					// Capture Babel loader
@@ -128,9 +123,26 @@ const developmentConfig = merge([
 ]);
 
 module.exports = (env) => {
-	if (env === 'production') {
-		return merge(commonConfig, productionConfig);
-	}
+	const pages = [
+		parts.page({
+			title: 'Webpack demo',
+			entry: {
+				app: PATHS.app,
+			},
+			chunks: ['app', 'manifest', 'vendor'],
+		}),
+		parts.page({
+			title: 'Another demo',
+			path: 'another',
+			entry: {
+				another: path.join(PATHS.app, 'another.js'),
+			},
+			chunks: ['another', 'manifest', 'vendor'],
+		}),
+	];
+	const config = env === 'production' ?
+		productionConfig :
+		developmentConfig;
 
-	return merge(commonConfig, developmentConfig);
+	return merge([commonConfig, config].concat(pages));
 };
