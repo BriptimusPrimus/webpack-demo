@@ -1,15 +1,27 @@
 {
-    "plugins": ["syntax-dynamic-import"],
+    "plugins": [
+      "syntax-dynamic-import"
+    ],
     "presets": [
-        "react",
-        [
-            "env",
-            {
-                "modules": false,
-                "targets": {
-                    "browsers": ["IE 8"]
-                }
-            }
+      [
+        "env",
+        {
+          "modules": false,
+          "targets": {
+            "browsers": ["IE 8"]
+          }
+        }
+      ],
+      "react"
+    ],
+    "env": {
+      "karma": {
+        "plugins": [
+          [
+            "istanbul",
+            { "exclude": ["tests/*.test.js"] }
+          ]
         ]
-    ]
-}
+      }
+    }
+  }
