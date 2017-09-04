@@ -178,6 +178,10 @@ exports.loadJavaScript = ({ include, exclude }) => ({
 
 				loader: 'happypack/loader',
 				options: {
+					plugins: [
+						["transform-react-jsx", { "pragma": "h" }]
+					],
+
 					// Enable caching for improved performance during
 					// development.
 					// It uses default OS directory by default. If you need
