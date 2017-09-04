@@ -6,13 +6,19 @@
   "scripts": {
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "build": "webpack --env production",
-    "lint:js": "eslint app/ webpack.*.js --cache",
+    "lint:js": "eslint app/ tests/ webpack.*.js --cache",
     "lint:style": "stylelint app/**/*.css",
     "stats": "webpack --env production --profile --json > stats.json",
     "build:lib": "webpack --config webpack.lib.js",
     "prebuild:lib": "npm run lint:js && rimraf dist",
     "build:ssr": "webpack --config webpack.ssr.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:i18n": "webpack --config webpack.i18n.js",
+    "test:mocha": "mocha tests",
+    "test:mocha:watch": "webpack-dev-server --hot --config webpack.mocha.js",
+    "test:karma": "karma start",
+    "test:karma:watch": "karma start --auto-watch --no-single-run",
+    "test:jest:watch": "jest --watch",
+    "test:jest": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,6 +36,7 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
+    "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
@@ -47,8 +54,18 @@
     "glob": "^7.1.2",
     "happypack": "^4.0.0-beta.4",
     "html-webpack-plugin": "^2.30.1",
+    "i18n-webpack-plugin": "^1.0.0",
+    "jest": "^20.0.4",
+    "karma": "^1.7.1",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-webpack": "^2.0.4",
+    "mocha": "^3.5.0",
+    "mocha-loader": "^1.1.1",
     "nodemon": "^1.11.0",
     "optimize-css-assets-webpack-plugin": "^3.1.1",
+    "phantomjs-prebuilt": "^2.1.15",
     "postcss-loader": "^2.0.6",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
@@ -58,7 +75,8 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "worker-loader": "^0.8.1"
   },
   "dependencies": {
     "express": "^4.15.4",

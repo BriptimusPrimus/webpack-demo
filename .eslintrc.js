@@ -4,6 +4,7 @@ module.exports = {
         commonjs: true,
         es6: true,
         node: true,
+        mocha: true,
     },
     extends: ['eslint:recommended', 'plugin:react/recommended'],
     parser: 'babel-eslint',
@@ -20,6 +21,10 @@ module.exports = {
     plugins: [
       'react',
     ],
+
+    globals: {
+      __: true,
+    },
 
     rules: {
         'comma-dangle': ['error', 'always-multiline'],
